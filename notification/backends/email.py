@@ -3,10 +3,9 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
-from notification import backends
+from notification.backends import BaseBackend
 
-
-class EmailBackend(backends.BaseBackend):
+class EmailBackend(BaseBackend):
     spam_sensitivity = 2
 
     def can_send(self, user, notice_type):
@@ -15,13 +14,14 @@ class EmailBackend(backends.BaseBackend):
             return True
         return False
 
-    def deliver(self, recipient, sender, notice_type, extra_context):
+    # def deliver(self, recipient, sender, notice_type, extra_context):
+    def deliver(self, recipient, notice_type, extra_context):
         # TODO: require this to be passed in extra_context
 
         context = self.default_context()
         context.update({
             "recipient": recipient,
-            "sender": sender,
+            # "sender": sender,
             "notice": ugettext(notice_type.display),
         })
         context.update(extra_context)
