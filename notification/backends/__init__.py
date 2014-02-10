@@ -2,14 +2,15 @@ import sys
 
 from django.conf import settings
 from django.core import exceptions
-
+from django.utils.translation import ugettext_lazy as _
 from .base import BaseBackend
 
 
 # pylint: disable-msg=C0103
 # mostly for backend compatibility
 default_backends = [
-    ("email", "notification.backends.email.EmailBackend"),
+    (_("site"), "notification.backends.site.OnSiteBackend"),
+    (_("email"), "notification.backends.email.EmailBackend"),
 ]
 
 
