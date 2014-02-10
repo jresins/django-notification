@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-10 18:25+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\models.py:41
+msgid "label"
+msgstr ""
+
+#: .\models.py:42
+msgid "display"
+msgstr ""
+
+#: .\models.py:43
+msgid "description"
+msgstr ""
+
+#: .\models.py:46
+msgid "default"
+msgstr ""
+
+#: .\models.py:52 .\models.py:91 .\models.py:276
+msgid "notice type"
+msgstr ""
+
+#: .\models.py:53
+msgid "notice types"
+msgstr ""
+
+#: .\models.py:90
+msgid "user"
+msgstr ""
+
+#: .\models.py:92
+msgid "medium"
+msgstr ""
+
+#: .\models.py:93
+msgid "send"
+msgstr ""
+
+#: .\models.py:96
+msgid "notice setting"
+msgstr ""
+
+#: .\models.py:97
+msgid "notice settings"
+msgstr ""
+
+#: .\models.py:272
+msgid "recipient"
+msgstr ""
+
+#: .\models.py:275 .\templates\notification\notice_list_inc.html:9
+msgid "message"
+msgstr ""
+
+#: .\models.py:277
+msgid "added"
+msgstr ""
+
+#: .\models.py:278
+msgid "unseen"
+msgstr ""
+
+#: .\models.py:306
+msgid "notice"
+msgstr ""
+
+#: .\models.py:307
+msgid "notices"
+msgstr ""
+
+#: .\backends\__init__.py:12
+msgid "site"
+msgstr ""
+
+#: .\backends\__init__.py:13
+msgid "email"
+msgstr ""
+
+#: .\templates\notification\email_body.txt:1
+#, python-format
+msgid ""
+"You have received the following notice from %(current_site)s:\n"
+"\n"
+"%(message)s\n"
+"\n"
+"To see other notices or change how you receive notifications, please go to %"
+"(default_http_protocol)s://%(current_site)s%(notices_url)s\n"
+msgstr ""
+
+#: .\templates\notification\email_subject.txt:1
+#, python-format
+msgid "[%(current_site)s] %(message)s"
+msgstr ""
+
+#: .\templates\notification\full.html:1 .\templates\notification\full.txt:1
+#: .\templates\notification\notice.html:1 .\templates\notification\short.txt:1
+#, python-format
+msgid "%(notice)s"
+msgstr ""
+
+#: .\templates\notification\notice_list.html:3
+#: .\templates\notification\notice_list.html:7
+msgid "Notification List"
+msgstr ""
+
+#: .\templates\notification\notice_list_inc.html:9
+msgid "time"
+msgstr ""
+
+#: .\templates\notification\notice_list_inc.html:9
+msgid "Mark as read"
+msgstr ""
+
+#: .\templates\notification\notice_list_inc.html:12
+msgid "Mark"
+msgstr ""
+
+#: .\templates\notification\notice_list_inc.html:14
+msgid "no messages"
+msgstr ""
+
+#: .\templates\notification\notice_settings.html:8
+#: .\templates\notification\notice_settings.html:12
+msgid "Notification Settings"
+msgstr ""
+
+#: .\templates\notification\notice_settings.html:16
+#, python-format
+msgid ""
+"\n"
+"        <p class=\"alert alert-warning\">\n"
+"            <span class=\"warning\">Note</span>:\n"
+"            You do not have a verified email address to which notices can be "
+"sent. <a href=\"%(email_url)s\">Add one</a> now.\n"
+"        </p>\n"
+"        "
+msgstr ""
+
+#: .\templates\notification\notice_settings.html:28
+msgid "Notification Type"
+msgstr ""
+
+#: .\templates\notification\notice_settings.html:53
+msgid "Change"
+msgstr ""
