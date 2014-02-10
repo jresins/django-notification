@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block head_title %}{% trans "Notification List" %}{% endblock %}
+
+{% block body %}
+<fieldset>
+<legend>{% trans "Notification List" %}</legend>
+<div class="endless_page_template">
+{% include page_template %}
+</div>
+</fieldset>
+{% endblock body %}
