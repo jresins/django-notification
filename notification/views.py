@@ -1,10 +1,13 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-
+# from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-from notification.models import NoticeSetting, NoticeType, NOTICE_MEDIA
+from endless_pagination.views import AjaxListView
+
+from notification.models import NoticeSetting, NoticeType, NOTICE_MEDIA, Notice
 
 
 @login_required
@@ -59,3 +62,38 @@ def notice_settings(request):
         "notice_types": notice_types,
         "notice_settings": settings,
     }, context_instance=RequestContext(request))
+
+
+class NoticeList(AjaxListView):
+    """
+    Notice List for current user, this view rely on
+    'endless_pagination' to provide pagination function
+    """
+    template_name = 'notification/notice_list.html'
+    page_template = 'notification/notice_list_inc.html'
+    context_object_name = 'notice_list'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(NoticeList, self).dispatch(*args,**kwargs)
+
+    def get_queryset(self):
+        """
+        return notice list for the current user
+        """
+        return Notice.notices_for(self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        """
+        method for delete notification
+        function for "Mark as Read"
+        """
+        notice_id = None
+        for key,value in request.POST.items():
+            if 'btn' in key:
+                notice_id = int(value)
+                break
+        if isinstance(notice_id, int):
+            Notice.objects.filter(pk=notice_id).delete()
+        return self.get(request, *args, **kwargs)
+
