@@ -22,7 +22,8 @@ class BaseBackend(object):
         from notification.models import NoticeSetting
         return NoticeSetting.for_user(user, notice_type, self.medium_id).send
 
-    def deliver(self, recipient, sender, notice_type, extra_context):
+    # def deliver(self, recipient, sender, notice_type, extra_context):
+    def deliver(self, recipient, notice_type, extra_context):
         """
         Deliver a notification to the given recipient.
         """
