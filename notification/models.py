@@ -1,3 +1,5 @@
+#coding:utf-8
+# import sys
 from __future__ import unicode_literals
 from __future__ import print_function
 
@@ -133,7 +135,7 @@ def get_notification_language(user):
     raise LanguageStoreNotAvailable
 
 
-def send_now(users, label, extra_context=None, sender=None):
+def send_now(users, label, extra_context=None):
     """
     Creates a new notice.
 
@@ -166,7 +168,8 @@ def send_now(users, label, extra_context=None, sender=None):
 
         for backend in NOTIFICATION_BACKENDS.values():
             if backend.can_send(user, notice_type):
-                backend.deliver(user, sender, notice_type, extra_context)
+                # backend.deliver(user, sender, notice_type, extra_context)
+                backend.deliver(user, notice_type, extra_context)
                 sent = True
 
     # reset environment to original language
@@ -195,7 +198,7 @@ def send(*args, **kwargs):
             return send_now(*args, **kwargs)
 
 
-def queue(users, label, extra_context=None, sender=None):
+def queue(users, label, extra_context=None):
     """
     Queue the notification in NoticeQueueBatch. This allows for large amounts
     of user notifications to be deferred to a seperate process running outside
@@ -209,5 +212,143 @@ def queue(users, label, extra_context=None, sender=None):
         users = [user.pk for user in users]
     notices = []
     for user in users:
-        notices.append((user, label, extra_context, sender))
+        notices.append((user, label, extra_context))
     NoticeQueueBatch(pickled_data=base64.b64encode(pickle.dumps(notices))).save()
+
+
+
+# class NoticeManager(models.Manager):
+#     """
+#     """
+#     def notices_for(self, user, unseen=None, sent=False):
+#         """
+#         returns Notice objects for the given user.
+
+#         If archived=False, it only include notices not archived.
+#         If archived=True, it returns all notices for that user.
+
+#         If unseen=None, it includes all notices.
+#         If unseen=True, return only unseen notices.
+#         If unseen=False, return only seen notices.
+
+#         the tag 'sent' is to identify whether the 'user' is
+#         sender or recipient
+#         """
+#         if sent:
+#             lookup_kwargs = {"sender": user}
+#         else:
+#             lookup_kwargs = {"recipient": user}
+#         qs = self.filter(**lookup_kwargs)
+#         if unseen is not None:
+#             qs = qs.filter(unseen=unseen)
+#         return qs
+
+#     def unseen_count_for(self, recipient, **kwargs):
+#         """
+#         returns the number of unseen notices for the given user but does not
+#         mark them seen
+#         """
+#         return self.notices_for(recipient, unseen=True, **kwargs).count()
+
+#     def received(self, recipient, **kwargs):
+#         """
+#         returns notices the given recipient has recieved.
+#         """
+#         kwargs["sent"] = False
+#         return self.notices_for(recipient, **kwargs)
+
+#     def sent(self, sender, **kwargs):
+#         """
+#         returns notices the given sender has sent
+#         """
+#         kwargs["sent"] = True
+#         return self.notices_for(sender, **kwargs)
+
+
+@python_2_unicode_compatible
+class Notice(models.Model):
+    """
+    """
+    recipient = models.ForeignKey(AUTH_USER_MODEL, related_name="notice_recipient", verbose_name=_("recipient"))
+    # notification should always sent by system, so the sender field should be removed.
+    # sender = models.ForeignKey(AUTH_USER_MODEL, null=True, related_name="notice_sender", verbose_name=_("sender"))
+    message = models.TextField(_("message"))
+    notice_type = models.ForeignKey(NoticeType, verbose_name=_("notice type"))
+    added = models.DateTimeField(_("added"), auto_now_add=True)
+    unseen = models.BooleanField(_("unseen"), default=True)
+    # archived = models.BooleanField(_("archived"), default=False)
+    # on_site = models.BooleanField(_("on site"))
+
+    # objects = NoticeManager()
+
+    def __str__(self):
+        return self.message
+
+    # def archive(self):
+    #     self.archived = True
+    #     self.save()
+
+    def is_unseen(self):
+        """
+        returns value of self.unseen but also changes it to false.
+
+        Use this in a template to mark an unseen notice differently the first
+        time it is shown.
+        """
+        unseen = self.unseen
+        if unseen:
+            self.unseen = False
+            self.save()
+        return unseen
+
+    class Meta:
+        ordering = ["-added"]
+        verbose_name = _("notice")
+        verbose_name_plural = _("notices")
+
+    def get_absolute_url(self):
+        return reverse("notification_notice", args=[str(self.pk)])
+
+    @classmethod
+    def notices_for(cls, user, unseen=None):
+        """
+        returns Notice objects for the given user.
+        If unseen=None, it includes all notices.
+        If unseen=True, return only unseen notices.
+        If unseen=False, return only seen notices.
+
+        the tag 'sent' is to identify whether the 'user' is
+        sender or recipient
+        """
+        # if sent:
+        #     lookup_kwargs = {"sender": user}
+        # else:
+        lookup_kwargs = {"recipient": user}
+        qs = cls._default_manager.filter(**lookup_kwargs)
+        if unseen is not None:
+            qs = qs.filter(unseen=unseen)
+        return qs
+
+    @classmethod
+    def unseen_count_for(cls, recipient, **kwargs):
+        """
+        returns the number of unseen notices for the given user but does not
+        mark them seen
+        """
+        return cls.notices_for(recipient, unseen=True, **kwargs).count()
+
+    @classmethod
+    def received(cls, recipient, **kwargs):
+        """
+        returns notices the given recipient has recieved.
+        """
+        # kwargs["sent"] = False
+        return cls.notices_for(recipient, **kwargs)
+
+    # @classmethod
+    # def sent(cls, sender, **kwargs):
+    #     """
+    #     returns notices the given sender has sent
+    #     """
+    #     kwargs["sent"] = True
+    #     return cls.notices_for(sender, **kwargs)
