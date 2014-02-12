@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: django-notification\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-10 18:25+0800\n"
-"PO-Revision-Date: 2014-02-10 18:32+0800\n"
+"POT-Creation-Date: 2014-02-11 10:07+0800\n"
+"PO-Revision-Date: 2014-02-11 10:16+0800\n"
 "Last-Translator: jresins <jresins@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,15 +44,15 @@ msgstr "通知类别"
 
 #: .\models.py:90
 msgid "user"
-msgstr ""
+msgstr "用户"
 
 #: .\models.py:92
 msgid "medium"
-msgstr ""
+msgstr "方式"
 
 #: .\models.py:93
 msgid "send"
-msgstr ""
+msgstr "发送"
 
 #: .\models.py:96
 msgid "notice setting"
@@ -87,11 +87,11 @@ msgid "notices"
 msgstr "通知"
 
 #: .\backends\__init__.py:12
-msgid "site"
+msgid "on-site"
 msgstr "站内通知"
 
 #: .\backends\__init__.py:13
-msgid "email"
+msgid "E-mail"
 msgstr "E-mail通知"
 
 #: .\templates\notification\email_body.txt:1
@@ -104,6 +104,12 @@ msgid ""
 "To see other notices or change how you receive notifications, please go to "
 "%(default_http_protocol)s://%(current_site)s%(notices_url)s\n"
 msgstr ""
+"你收到一条来自 %(current_site)s:\n"
+"的通知\n"
+"%(message)s\n"
+"\n"
+"查看其他通知，或修改接收通知的方式，请访问 %(default_http_protocol)s://"
+"%(current_site)s%(notices_url)s\n"
 
 #: .\templates\notification\email_subject.txt:1
 #, python-format
@@ -137,12 +143,12 @@ msgstr "标记"
 msgid "no messages"
 msgstr "没有通知"
 
-#: .\templates\notification\notice_settings.html:8
-#: .\templates\notification\notice_settings.html:12
+#: .\templates\notification\notice_settings.html:6
+#: .\templates\notification\notice_settings.html:10
 msgid "Notification Settings"
 msgstr "通知设定"
 
-#: .\templates\notification\notice_settings.html:16
+#: .\templates\notification\notice_settings.html:14
 #, python-format
 msgid ""
 "\n"
@@ -153,11 +159,18 @@ msgid ""
 "        </p>\n"
 "        "
 msgstr ""
+"\n"
+"        <p class=\"alert alert-warning\">\n"
+"            <span class=\"warning\">Note</span>:\n"
+"            你没有用于接收通知的E-mail地址，现在 <a href=\"%(email_url)s\">添"
+"加</a> 。\n"
+"        </p>\n"
+"        "
 
-#: .\templates\notification\notice_settings.html:28
+#: .\templates\notification\notice_settings.html:26
 msgid "Notification Type"
 msgstr "通知类别"
 
-#: .\templates\notification\notice_settings.html:53
+#: .\templates\notification\notice_settings.html:51
 msgid "Change"
 msgstr "修改"

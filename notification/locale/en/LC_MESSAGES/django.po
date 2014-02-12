@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-10 18:25+0800\n"
+"POT-Creation-Date: 2014-02-11 10:07+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,11 +85,11 @@ msgid "notices"
 msgstr ""
 
 #: .\backends\__init__.py:12
-msgid "site"
+msgid "on-site"
 msgstr ""
 
 #: .\backends\__init__.py:13
-msgid "email"
+msgid "E-mail"
 msgstr ""
 
 #: .\templates\notification\email_body.txt:1
@@ -135,12 +135,12 @@ msgstr ""
 msgid "no messages"
 msgstr ""
 
-#: .\templates\notification\notice_settings.html:8
-#: .\templates\notification\notice_settings.html:12
+#: .\templates\notification\notice_settings.html:6
+#: .\templates\notification\notice_settings.html:10
 msgid "Notification Settings"
 msgstr ""
 
-#: .\templates\notification\notice_settings.html:16
+#: .\templates\notification\notice_settings.html:14
 #, python-format
 msgid ""
 "\n"
@@ -152,10 +152,10 @@ msgid ""
 "        "
 msgstr ""
 
-#: .\templates\notification\notice_settings.html:28
+#: .\templates\notification\notice_settings.html:26
 msgid "Notification Type"
 msgstr ""
 
-#: .\templates\notification\notice_settings.html:53
+#: .\templates\notification\notice_settings.html:51
 msgid "Change"
 msgstr ""
