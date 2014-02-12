@@ -6,7 +6,7 @@
     {% csrf_token %}
 <table class="table">
     <thead>
-        <tr><th>{% trans "message" %}</th><th>{% trans "time" %}</th><td>{% trans "Mark as read" %}</td></tr>
+        <tr><th>{% trans "message" %}</th><th>{% trans "time" %}</th><th>{% trans "Mark as read" %}</th></tr>
     </thead>
     {% for notice in notice_list %}
         <tr><td>{{ notice.message|safe }}</td><td>{{ notice.added|timesince }}</td><td><button type="submit" name="btn-{{ notice.pk }}" value="{{ notice.pk }}" class="btn btn-default btn-sm">{% trans "Mark" %}</button></td></tr>
