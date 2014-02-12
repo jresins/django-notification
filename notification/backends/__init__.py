@@ -9,8 +9,8 @@ from .base import BaseBackend
 # pylint: disable-msg=C0103
 # mostly for backend compatibility
 default_backends = [
-    (_("site"), "notification.backends.site.OnSiteBackend"),
-    (_("email"), "notification.backends.email.EmailBackend"),
+    (_("on-site"), "notification.backends.site.OnSiteBackend"),
+    (_("E-mail"), "notification.backends.email.EmailBackend"),
 ]
 
 
